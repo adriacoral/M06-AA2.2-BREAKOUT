@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Powerup ROJO: Bola Extra
 public class PowerupBolaExtra : Powerup
 {
     void Start()

@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Powerup VERDE: Escopeta
 public class PowerupEscopeta : Powerup
 {
     void Start()

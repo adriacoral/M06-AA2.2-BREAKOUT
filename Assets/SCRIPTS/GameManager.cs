@@ -4,14 +4,14 @@ using TMPro;
 // GameManager: Controla el sistema de vidas, puntuación y estado general del juego
 public class GameManager : MonoBehaviour
 {
-    // Singleton para acceso global
+    
     public static GameManager Instance;
 
     [Header("Sistema de Vidas")]
     public int vidasActuales = 3;
     public int vidasIniciales = 3;
     public GameObject prefabPelota;
-    public Transform puntoSpawnPelota; // Punto donde aparecen las pelotas
+    public Transform puntoSpawnPelota;
 
     [Header("Sistema de Puntuación")]
     public int puntuacion = 0;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        // Configurar Singleton
+        
         if (Instance == null)
         {
             Instance = this;
@@ -51,18 +51,18 @@ public class GameManager : MonoBehaviour
         if (panelVictoria != null) panelVictoria.SetActive(false);
         if (panelDerrota != null) panelDerrota.SetActive(false);
 
-        // Crear la primera pelota
+        
         SpawnearPelota();
     }
 
     void Update()
     {
-        // Verificar si no hay pelotas en pantalla (SOLO si el juego ya empezó)
+        
         if (!verificandoVidas && vidasActuales > 0)
         {
             GameObject[] pelotas = GameObject.FindGameObjectsWithTag("Pelota");
 
-            // Solo verificar si han pasado al menos 2 segundos desde el inicio
+           
             if (Time.timeSinceLevelLoad > 2f && pelotas.Length == 0)
             {
                 verificandoVidas = true;
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Método llamado cuando la pelota cae
+   
     public void PerderVida()
     {
         vidasActuales--;
@@ -80,24 +80,24 @@ public class GameManager : MonoBehaviour
 
         if (vidasActuales > 0)
         {
-            // Crear nueva pelota
+            
             SpawnearPelota();
         }
         else
         {
-            // Game Over
+            
             GameOver();
         }
     }
 
-    // Añadir vidas (para powerups)
+    
     public void AnadirVida(int cantidad = 1)
     {
         vidasActuales += cantidad;
         ActualizarUI();
     }
 
-    // Sumar puntos cuando se destruye un bloque
+    
     public void SumarPuntos(int puntos)
     {
         puntuacion += puntos;
@@ -105,14 +105,14 @@ public class GameManager : MonoBehaviour
 
         bloquesDestruidos++;
 
-        // Verificar victoria
+        
         if (bloquesDestruidos >= bloquesTotales)
         {
             Victoria();
         }
     }
 
-    // Spawnear una pelota simple
+    
     public void SpawnearPelota()
     {
         if (prefabPelota != null)
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Spawnear pelota en posición específica (para powerups)
+    
     public GameObject SpawnearPelotaEn(Vector3 posicion)
     {
         if (prefabPelota != null)
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    // Actualizar textos de UI
+    
     void ActualizarUI()
     {
         if (textoVidas != null)
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Victoria
+    
     void Victoria()
     {
         Debug.Log("¡Victoria! Puntuación final: " + puntuacion);
@@ -155,10 +155,10 @@ public class GameManager : MonoBehaviour
         {
             panelVictoria.SetActive(true);
         }
-        Time.timeScale = 0; // Pausar el juego
+        Time.timeScale = 0; 
     }
 
-    // Game Over
+    
     void GameOver()
     {
         Debug.Log("Game Over. Puntuación final: " + puntuacion);
@@ -166,10 +166,10 @@ public class GameManager : MonoBehaviour
         {
             panelDerrota.SetActive(true);
         }
-        Time.timeScale = 0; // Pausar el juego
+        Time.timeScale = 0; 
     }
 
-    // Reiniciar juego
+    
     public void ReiniciarJuego()
     {
         Time.timeScale = 1;
